@@ -11,7 +11,7 @@
 # jenkins list - lists Jenkins jobs
 #
 
-jenkinsList = (msg) ->
+jenkinsBuild = (msg) ->
     url = process.env.HUBOT_JENKINS_URL
     job = msg.match[1]
     params = msg.match[3]
@@ -33,7 +33,7 @@ jenkinsList = (msg) ->
         else
           msg.send "Jenkins says: #{body}"
 
-jenkinsBuild = (msg) ->
+jenkinsList = (msg) ->
     url = process.env.HUBOT_JENKINS_URL
     job = msg.match[1]
     req = msg.http("#{url}/api/json")
@@ -58,10 +58,10 @@ jenkinsBuild = (msg) ->
 
 module.exports = (robot) ->
   robot.respond /jenkins build ([\w\.\-_]+)( with (.+))?/i, (msg) ->
-    jenkinsList(msg)
+    jenkinsBuild(msg)
 
   robot.respond /jenkins list/i, (msg) ->
-    jenkinsBuild(msg)
+    jenkinsList(msg)
 
   robot.jenkins = {
     list: jenkinsList,

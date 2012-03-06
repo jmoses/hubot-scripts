@@ -6,6 +6,7 @@ module.exports = (robot) ->
     data = robot.brain.data.away ?= {}
     if data[msg.message.user.name]
       msg.send "Welcome back, " + msg.message.user.name
+      robot.broadcast "#{msg.message.user.name} is back from: #{data[msg.message.user.name]}"
       delete data[msg.message.user.name]
 
   robot.respond /(away|out)\s+(.*)/i, (msg) ->
@@ -13,6 +14,7 @@ module.exports = (robot) ->
 
     data[msg.message.user.name] = msg.match[2]
     msg.send "Bye, " + msg.message.user.name
+    robot.broadcast "#{msg.message.user.name} out: #{msg.match[2]}" 
 
   robot.respond /where is (.*)/i, (msg) ->
     users = robot.usersForFuzzyName(msg.match[1])

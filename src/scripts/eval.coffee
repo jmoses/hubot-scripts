@@ -9,4 +9,4 @@ module.exports = (robot) ->
       .query(s: "#!/usr/bin/#{msg.match[2]}\n#{msg.match[3]}")
       .get() (err, res, body) ->
         out = JSON.parse(body)
-        msg.send if out.stderr then out.stderr else out.stdout
+        msg.paste if out.stderr then out.stderr else out.stdout
